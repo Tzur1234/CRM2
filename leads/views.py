@@ -1,3 +1,5 @@
+from django.core.mail import send_mail
+
 from django.shortcuts import render
 
 from django.urls import reverse 
@@ -37,6 +39,18 @@ class LeadCreateView(CreateView):
     model = Lead
     form_class = CreateLeadForm
 
+    def form_valid(self, form):
+
+        send_mail(
+            "A new lead has beem created !",
+            "Go to the site to see the new lead",
+            "test2gmail.com",
+            ['test2gmail.com']
+        )
+
+        return super(LeadCreateView, self).form_valid(form)
+
+
     def get_queryset(self):
         queryset = Lead.objects.all()
         return queryset
@@ -73,8 +87,6 @@ class LeadDeleteView(DeleteView):
     model= Lead
     context_object_name = 'lead'
     
-
-
     def get_queryset(self):
         queyset = Lead.objects.all()
         return queyset
