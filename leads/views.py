@@ -18,13 +18,20 @@ from django.views.generic import (
     DeleteView,
     CreateView
 )
+from django.contrib.auth.forms import UserCreationForm
 
+class SignUpView(CreateView):
+    template_name = 'registration/signup.html'
+    form_class = UserCreationForm 
+    
+    def get_success_url(self):
+        return reverse("login")
 
 class DashboardPageView(TemplateView):
     template_name="index.html"
 
-class BasePageView(TemplateView):
-    template_name="base.html"
+class HomePageView(TemplateView):
+    template_name="home_page.html"
 
 class LeadListView(ListView):
     template_name = 'lead_list.html'

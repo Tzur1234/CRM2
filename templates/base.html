@@ -77,7 +77,7 @@
                                 </button>
 
                                 <!-- Navbar Brand -->
-                                <a href="index.html" class="navbar-brand flex ">
+                                <a href="{% url 'dashboard' %}" class="navbar-brand flex ">
                                     <span>CRM</span>
                                 </a>
 
@@ -306,28 +306,28 @@
             <div class="mdk-drawer__content">
                 <div class="sidebar sidebar-dark sidebar-left simplebar" data-simplebar>
                     <div class="d-flex align-items-center sidebar-p-a border-bottom sidebar-account flex-shrink-0">
-                        <a href="index.html" class="flex d-flex align-items-center text-underline-0 text-body">
+                        <a href="{% url 'dashboard' %}" class="flex d-flex align-items-center text-underline-0 text-body">
                             <span class="mr-3">
                                 <img src="{% static 'assets/images/logo.sv'%}g" width="43" height="43" alt="avatar">
                             </span>
                             <span class="flex d-flex flex-column">
-                                <strong style="font-size: 1.125rem;">FlatAdmin</strong>
-                                <small class="text-muted text-uppercase" style="color: rgba(255,255,255,.54)">Bootstrap 4</small>
+                                <strong style="font-size: 1.125rem;">CRM</strong>
+                                
                             </span>
                         </a>
                         <div class="dropdown ml-auto">
                             <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">keyboard_arrow_down</i></a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <div class="dropdown-item-text dropdown-item-text--lh">
-                                    <div><strong>Adrian Demian</strong></div>
-                                    <div>@adriandemian</div>
+                                    <div><strong>{{request.user.username}}</strong></div>
+                                    <div>{{request.user.email}}</div>
                                 </div>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item active" href="index.html">Dashboard</a>
+                                <a class="dropdown-item active" href="{% url 'dashboard' %}">Dashboard</a>
                                 <a class="dropdown-item" href="profile.html">My profile</a>
                                 <a class="dropdown-item" href="edit-account.html">Edit account</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="login.html">Logout</a>
+                                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                             </div>
                         </div>
                     </div>
@@ -355,7 +355,7 @@
                         <div id="sm-menu" class="tab-pane show active" role="tabpanel" aria-labelledby="sm-menu-tab">
                             <ul class="sidebar-menu flex">
                                 <li class="sidebar-menu-item active">
-                                    <a class="sidebar-menu-button" href="index.html">
+                                    <a class="sidebar-menu-button" href="{% url 'dashboard' %}">
                                         <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">dvr</i>
                                         <span class="sidebar-menu-text">Dashboard</span>
                                     </a>
@@ -543,7 +543,7 @@
                                     </a>
                                 </li>
                                 <li class="sidebar-menu-item">
-                                    <a class="sidebar-menu-button" href="login.html">
+                                    <a class="sidebar-menu-button" href="{% url 'logout' %}">
                                         <span class="sidebar-menu-text">Logout</span>
                                     </a>
                                 </li>
@@ -604,7 +604,7 @@
                     <div class="mt-auto sidebar-p-a sidebar-b-t d-flex flex-column flex-shrink-0">
                         <a class="sidebar-link mb-2" href="edit-account.html">Change Password</a>
                         <a class="sidebar-link mb-2" href="edit-account.html">Settings</a>
-                        <a class="sidebar-link" href="login.html">
+                        <a class="sidebar-link" href="{% url 'logout' %}">
                             Logout
                             <i class="sidebar-menu-icon ml-2 material-icons icon-16pt">exit_to_app</i>
                         </a>

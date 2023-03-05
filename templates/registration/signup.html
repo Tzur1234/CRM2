@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+
+    <div class="d-flex flex-column justify-content-center align-items-center mt-2 mb-2 navbar-light">
+        <a href="index.html" class="navbar-brand text-center mb-2 mr-0" style="min-width: 0">
+            <img class="navbar-brand-icon" src="{% static 'assets/images/logo.svg'%}" width="43" alt="Flat">
+            <span>CRM</span>
+        </a>
+    </div>
+
+    <div class="card card-body">
+
+
+       
+
+        <form method="post">
+            {% csrf_token %}
+            {{form|crispy}}
+            <div class="form-group">
+                <button class="btn btn-block btn-primary" type="submit">Login</button>
+            </div>
+         
+            <div class="form-group text-center">
+                <a href="">Forgot password?</a> <br>
+                Don't have an account? <a class="text-body text-underline" href="{% url 'signup' %}">Sign up!</a>
+            </div>
+        </form>
+    </div>
+
+
+
+{% endblock content %}
+
+
+
+
