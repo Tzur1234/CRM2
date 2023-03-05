@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Lead
 
-from .forms import UserSignCustomForm, CreateLeadForm
+from .forms import UserSignCustomForm, CreateLeadForm   
 
 from django.views.generic import (
     TemplateView,
