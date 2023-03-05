@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Lead
 
-from .forms import CreateLeadForm
+from .forms import UserSignCustomForm, CreateLeadForm
 
 from django.views.generic import (
     TemplateView,
@@ -18,22 +18,22 @@ from django.views.generic import (
     DeleteView,
     CreateView
 )
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class SignUpView(CreateView):
     template_name = 'registration/signup.html'
-    form_class = UserCreationForm 
+    form_class = UserSignCustomForm 
     
     def get_success_url(self):
         return reverse("login")
 
-class DashboardPageView(TemplateView):
+class DashboardPageView(LoginRequiredMixin, TemplateView):
     template_name="index.html"
 
 class HomePageView(TemplateView):
     template_name="home_page.html"
 
-class LeadListView(ListView):
+class LeadListView(LoginRequiredMixin, ListView): 
     template_name = 'lead_list.html'
     context_object_name = 'leads'
     
@@ -41,7 +41,7 @@ class LeadListView(ListView):
         queryset = Lead.objects.all()
         return queryset
      
-class LeadCreateView(CreateView):
+class LeadCreateView(LoginRequiredMixin, CreateView):
     template_name = 'lead_create.html'
     model = Lead
     form_class = CreateLeadForm
@@ -65,7 +65,7 @@ class LeadCreateView(CreateView):
     def get_success_url(self):
         return reverse('leads:leads')
 
-class LeadDetailView(DetailView):
+class LeadDetailView(LoginRequiredMixin, DetailView):
     template_name = 'lead_detail.html'
     model = Lead
 
@@ -74,7 +74,7 @@ class LeadDetailView(DetailView):
         return queryset
     
 
-class LeadUpdateView(UpdateView):
+class LeadUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'lead_update.html'
     model = Lead
     form_class = CreateLeadForm
@@ -88,7 +88,7 @@ class LeadUpdateView(UpdateView):
         return reverse('leads:leads')
 
     
-class LeadDeleteView(DeleteView):
+class LeadDeleteView(LoginRequiredMixin, DeleteView):
 
     template_name = "delete_lead.html"
     model= Lead
