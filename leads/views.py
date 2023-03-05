@@ -1,0 +1,84 @@
+from django.shortcuts import render
+
+from django.urls import reverse 
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from .models import Lead
+
+from .forms import CreateLeadForm
+
+from django.views.generic import (
+    TemplateView,
+    ListView,
+    DetailView,
+    UpdateView,
+    DeleteView,
+    CreateView
+)
+
+
+class DashboardPageView(TemplateView):
+    template_name="index.html"
+
+class BasePageView(TemplateView):
+    template_name="base.html"
+
+class LeadListView(ListView):
+    template_name = 'lead_list.html'
+    context_object_name = 'leads'
+    
+    def get_queryset(self):
+        queryset = Lead.objects.all()
+        return queryset
+     
+class LeadCreateView(CreateView):
+    template_name = 'lead_create.html'
+    model = Lead
+    form_class = CreateLeadForm
+
+    def get_queryset(self):
+        queryset = Lead.objects.all()
+        return queryset
+    
+    def get_success_url(self):
+        return reverse('leads:leads')
+
+class LeadDetailView(DetailView):
+    template_name = 'lead_detail.html'
+    model = Lead
+
+    def get_queryset(self):
+        queryset = Lead.objects.all()
+        return queryset
+    
+
+class LeadUpdateView(UpdateView):
+    template_name = 'lead_update.html'
+    model = Lead
+    form_class = CreateLeadForm
+    context_object_name = 'lead'
+
+    def get_queryset(self):
+        queryset = Lead.objects.all()
+        return queryset
+    
+    def get_success_url(self):
+        return reverse('leads:leads')
+
+    
+class LeadDeleteView(DeleteView):
+
+    template_name = "delete_lead.html"
+    model= Lead
+    context_object_name = 'lead'
+    
+
+
+    def get_queryset(self):
+        queyset = Lead.objects.all()
+        return queyset
+    
+
+    def get_success_url(self):
+        return reverse('leads:leads')   

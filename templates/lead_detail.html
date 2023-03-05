@@ -1,0 +1,41 @@
+{% extends "base.html" %} {% block title %} Lead Detail {% endblock title %}
+
+<div class="app-properties-container">
+  <div class="row h-100 m-0">
+    <div class="col-lg-9 py-grid d-flex flex-column h-100" data-simplebar>
+      <div class="container-fluid page__container">
+        {%block content %}
+
+        <div class="card card-form d-flex flex-column flex-sm-row mt-5">
+          <div class="card-form__body card-body-form-group flex">
+            <div class="media align-items-center">
+                <div class="avatar avatar-xs mr-4">
+                    <img
+                    src="{{lead.image.url}}"
+                    alt="Avatar"
+                    class="avatar-img rounded-circle"
+                    />
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                    {{lead.first_name}} {{lead.last_name}}
+                    </h5>
+                    <p class="card-text">
+                    Some quick example text to build on the card title and make up
+                    the bulk of the card's content.
+                    </p>
+                    <a class="btn btn-primary" href="{% url 'leads:update-lead' pk=lead.id %}">Edit</a>
+                    <a class="btn btn-primary" href="{% url 'leads:delete-lead' pk=lead.id %}">Delete</a>
+                    
+                    
+                </div>
+            </div>
+            </div>
+          </div>
+
+          {% endblock content %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
