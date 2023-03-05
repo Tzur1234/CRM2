@@ -162,3 +162,6 @@ else:
 
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'home_page'
+LOGIN_URL = '/login'
+
+AUTH_USER_MODEL = 'leads.User'

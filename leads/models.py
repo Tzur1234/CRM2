@@ -3,9 +3,16 @@ from django.contrib.auth.models import AbstractUser
 
 
 
-# class User(AbstractUser):
-#     is_organisor = models.BooleanField(default=True)
-#     is_agent = models.BooleanField(default=False)
+class User(AbstractUser):
+    is_organizor = models.BooleanField(default=True)
+    is_organizor = models.BooleanField(default=False)
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
+    
 
 
 class Lead(models.Model):
@@ -16,3 +23,12 @@ class Lead(models.Model):
 
     def __str__(self):
         return f'{self.first_name}'
+
+
+class Agent(models.Model):
+    user = models.OneToOneField(User ,on_delete=models.CASCADE, related_name="agent")
+    oraganization = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
+    
