@@ -4,13 +4,17 @@ from django.urls import path, include
 from django.conf import settings
 import leads
 from leads import views
+from django.contrib.auth.views import LoginView, LogoutView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('home/', views.HomePageView.as_view(), name="home_page"),
     path('', views.DashboardPageView.as_view(), name="dashboard"),
-    path('base/', views.BasePageView.as_view(), name="base"),
     path('leads/', include('leads.urls')),
+    path('login/', LoginView.as_view(), name='login'),
+    path('signup/', views.SignUpView.as_view(), name='signup'),
+    path('logout/', LogoutView.as_view(), name='logout')
 ]
 
 
