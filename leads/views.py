@@ -19,6 +19,7 @@ from django.views.generic import (
     CreateView
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
+from agents.mixins import OrganizorAndLoginRequiredMixin
 
 class SignUpView(CreateView):
     template_name = 'registration/signup.html'
@@ -41,7 +42,7 @@ class LeadListView(LoginRequiredMixin, ListView):
         queryset = Lead.objects.all()
         return queryset
      
-class LeadCreateView(LoginRequiredMixin, CreateView):
+class LeadCreateView(OrganizorAndLoginRequiredMixin, CreateView):
     template_name = 'lead_create.html'
     model = Lead
     form_class = CreateLeadForm
@@ -73,8 +74,7 @@ class LeadDetailView(LoginRequiredMixin, DetailView):
         queryset = Lead.objects.all()
         return queryset
     
-
-class LeadUpdateView(LoginRequiredMixin, UpdateView):
+class LeadUpdateView(OrganizorAndLoginRequiredMixin, UpdateView):
     template_name = 'lead_update.html'
     model = Lead
     form_class = CreateLeadForm
@@ -86,9 +86,8 @@ class LeadUpdateView(LoginRequiredMixin, UpdateView):
     
     def get_success_url(self):
         return reverse('leads:leads')
-
-    
-class LeadDeleteView(LoginRequiredMixin, DeleteView):
+  
+class LeadDeleteView(OrganizorAndLoginRequiredMixin, DeleteView):
 
     template_name = "delete_lead.html"
     model= Lead

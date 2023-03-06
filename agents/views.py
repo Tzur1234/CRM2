@@ -20,10 +20,11 @@ from . import forms
 
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .mixins import OrganizorAndLoginRequiredMixin
 
 from .forms import AgentCreateForm
 
-class AgentListView(LoginRequiredMixin, ListView):
+class AgentListView(OrganizorAndLoginRequiredMixin, ListView):
     template_name = 'agent_list.html'
     model = Agent
     context_object_name = 'agents'
@@ -33,7 +34,7 @@ class AgentListView(LoginRequiredMixin, ListView):
         organization = self.request.user.userprofile
         return Agent.objects.filter(organization=organization)
 
-class AgentCreateView(LoginRequiredMixin, CreateView):
+class AgentCreateView(OrganizorAndLoginRequiredMixin, CreateView):
     template_name = 'agent_create.html'
     form_class = AgentCreateForm 
     context_object_name = 'agent'
@@ -42,6 +43,14 @@ class AgentCreateView(LoginRequiredMixin, CreateView):
         # Add organization field
         agent = form.save(commit=False)
         agent.organization = self.request.user.userprofile
+        # Set user status
+        
+        
+        agent.user.is_organizor = False
+        agent.user.is_agent = True
+
+        
+        
         agent.save()
     
         
@@ -60,7 +69,7 @@ class AgentCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('agents:agent-list')
 
-class AgentDetailView(LoginRequiredMixin, DetailView):
+class AgentDetailView(OrganizorAndLoginRequiredMixin, DetailView):
 
     template_name = 'agent_detail.html'
     model = Agent
@@ -70,7 +79,7 @@ class AgentDetailView(LoginRequiredMixin, DetailView):
         organization = self.request.user.userprofile
         return Agent.objects.filter(organization=organization)
 
-class AgentUpdateView(LoginRequiredMixin, UpdateView):
+class AgentUpdateView(OrganizorAndLoginRequiredMixin, UpdateView):
     template_name = 'agent_create.html'
     model = Agent
     context_object_name = 'agent'
@@ -86,7 +95,7 @@ class AgentUpdateView(LoginRequiredMixin, UpdateView):
     
 
 
-class AgentDeleteView(LoginRequiredMixin, DeleteView):
+class AgentDeleteView(OrganizorAndLoginRequiredMixin, DeleteView):
     model = Agent
     template_name = 'agent_delete.html'
     context_object_name = 'agent' 

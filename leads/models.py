@@ -39,6 +39,14 @@ def post_user_created_signal(sender, instance, created, **kwargs):
 post_save.connect(post_user_created_signal, sender=User)
 
 
+def post_agent_created_signal(sender, instance, created, **kwargs):
+    if created:
+        instance.user.is_organizor = False
+        instance.user.is_agent = True
+
+post_save.connect(post_agent_created_signal, sender=Agent)
+
+
 
 
 
