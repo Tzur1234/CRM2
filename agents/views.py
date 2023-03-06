@@ -32,7 +32,7 @@ class AgentListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Agent.objects.all()
 
-class AgentCreateView(CreateView):
+class AgentCreateView(LoginRequiredMixin, CreateView):
     template_name = 'agent_create.html'
     form_class = AgentCreateForm 
     context_object_name = 'agent'
@@ -55,6 +55,44 @@ class AgentCreateView(CreateView):
 
 
         return super(AgentCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('agents:agent-list')
+
+class AgentDetailView(LoginRequiredMixin, DetailView):
+
+    template_name = 'agent_detail.html'
+    model = Agent
+    context_object_name = 'agent'
+
+    def get_queryset(self):
+        queryset = Agent.objects.all()
+        return queryset
+
+class AgentUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = 'agent_create.html'
+    model = Agent
+    context_object_name = 'agent'
+    form_class = AgentCreateForm
+
+    def get_queryset(self):
+        queryset = Agent.objects.all()
+        return queryset
+
+    def get_success_url(self):
+        return reverse('agents:agent-list')
+        
+    
+
+
+class AgentDeleteView(LoginRequiredMixin, DeleteView):
+    model = Agent
+    template_name = 'agent_delete.html'
+    context_object_name = 'agent' 
+
+    def get_queryset(self):
+        queryset = Agent.objects.all()
+        return queryset
 
     def get_success_url(self):
         return reverse('agents:agent-list')
