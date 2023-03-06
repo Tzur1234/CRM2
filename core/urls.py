@@ -5,7 +5,8 @@ from django.conf import settings
 import leads
 import agents
 from leads import views
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+
 
 
 urlpatterns = [
@@ -19,6 +20,15 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('signup/', views.SignUpView.as_view(), name='signup'),
     path('logout/', LogoutView.as_view(), name='logout'),
+
+    
+    path('password-reset/', PasswordResetView.as_view(), name='password_reset'),
+    
+    path('password-reset-done/', PasswordResetDoneView.as_view(), name='password_reset_done'),
+    
+    path('password-reset-confirm/<uidb64>/<token>/', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    
+    path('password_reset_complete/', PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 ]
 
 
