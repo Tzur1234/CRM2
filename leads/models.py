@@ -18,6 +18,8 @@ class Lead(models.Model):
     first_name = models.CharField(max_length=20, null=True, blank=True)
     last_name = models.CharField(max_length=20, null=True, blank=True)
     age = models.IntegerField(default=0, null=True, blank=True)
+    agent = models.ForeignKey('Agent', on_delete=models.SET_NULL, null=True, blank=True)
+    organization = models.ForeignKey("UserProfile", on_delete=models.CASCADE, null=True)
     image = models.ImageField()
 
     def __str__(self):

@@ -9,6 +9,7 @@ class CreateLeadForm(ModelForm):
     class Meta:
         model=Lead
         fields ='__all__'
+        exclude = ('organization',)
         
 
 class UserSignCustomForm(UserCreationForm):
