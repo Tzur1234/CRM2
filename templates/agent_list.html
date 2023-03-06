@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block content %}
+
+
+<div class="mdk-header-layout__content mdk-header-layout__content--fullbleed mdk-header-layout__content--scrollable page"
+>
+
+  <div class="container-fluid page__container">
+    <div class="d-flex justify-content-between">
+      <h1>Agents</h1>
+      <hr>
+      <a class="btn btn-primary m-2" href="{% url 'agents:agent-create' %}">Create Agent</a>
+    </div>
+    <div class="card card-form">
+      <div class="row no-gutters">
+        <div class="col-lg-12 card-form__body">
+          <div
+            class="table-responsive border-bottom"
+            data-toggle="lists"
+            data-lists-values='["js-lists-values-employee-name"]'
+          >
+            <table class="table mb-0 thead-border-top-0">
+              <thead>
+                <tr>
+                  <th style="width: 18px">
+                    <div class="custom-control custom-checkbox">
+                      <input
+                        type="checkbox"
+                        class="custom-control-input js-toggle-check-all"
+                        data-target="#staff"
+                        id="customCheckAll"
+                      />
+                      <label class="custom-control-label" for="customCheckAll"
+                        ><span class="text-hide">Toggle all</span></label
+                      >
+                    </div>
+                  </th>
+
+                  <th>LEAD</th>
+
+                  <th style="width: 37px">AGE</th>
+                  <th style="width: 37px">CATEGORY</th>
+                  <th style="width: 120px">Last Activity</th>
+                  <th style="width: 51px">Earnings</th>
+                  <th style="width: 24px"></th>
+                </tr>
+              </thead>
+              <tbody class="list" id="staff">
+                {% for agent in agents %}                  
+                    <tr class="selected">
+                    <td>
+                        <div class="custom-control custom-checkbox">
+                        <input
+                            type="checkbox"
+                            class="custom-control-input js-check-selected-row"
+                            
+                            id="customCheck{{agent.id}}"
+                        />
+                        <label class="custom-control-label" for="customCheck{{agent.id}}"
+                            ><span class="text-hide">Check</span></label
+                        >
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="media align-items-center">
+                        <div class="avatar avatar-xs mr-2">
+                            <img
+                            src="{{agent.image.url}}"
+                            alt="Avatar"
+                            class="avatar-img rounded-circle"
+                            />
+                        </div>
+                        <div class="media-body">
+                            <span class="js-lists-values-employee-name"
+                            >{{agent.user.username}}</span
+                            >
+                        </div>
+                        </div>
+                    </td>
+                    
+                    <td><span>{{agent.organization}}</span></td>
+                    <td><span class="badge badge-warning">{{agent.category}}</span></td>
+                    <td><small class="text-muted">3 days ago</small></td>
+                    <td>&dollar;12,402</td>
+                    <td>
+                      <div class="dropdown ml-auto">
+                        <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
+                        
+                        <div class="dropdown-menu dropdown-menu-right">
+                           
+                            
+                            <a class="dropdown-item active" href="#">Edit</a>
+                            <a class="dropdown-item" href="#">Delete</a>
+                            <a class="dropdown-item" href="#">View</a>
+                            
+                        </div>
+                    </div>
+                   
+                    </td>
+                    </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- // END header-layout__content -->
+  
+{% endblock content %}
