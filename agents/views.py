@@ -59,7 +59,7 @@ class AgentCreateView(OrganizorAndLoginRequiredMixin, CreateView):
             "You have been added as an agent !",
             "Please reset your password in order to start working ",
             "test2gmail.com",
-            ['test2gmail.com']
+            [user.email]
         )
 
 
