@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Lead
 
-from .forms import UserSignCustomForm, CreateLeadForm   
+from .forms import UserSignCustomForm, CreateLeadForm, AssignLeadForm  
 
 from django.views.generic import (
     TemplateView,
@@ -20,6 +20,8 @@ from django.views.generic import (
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
 from agents.mixins import OrganizorAndLoginRequiredMixin
+
+from django.views.generic.edit import FormView
 
 class SignUpView(CreateView):
     template_name = 'registration/signup.html'
@@ -148,6 +150,7 @@ class LeadUpdateView(OrganizorAndLoginRequiredMixin, UpdateView):
   
 class LeadDeleteView(OrganizorAndLoginRequiredMixin, DeleteView):
 
+
     template_name = "delete_lead.html"
     model= Lead
     context_object_name = 'lead'
@@ -159,4 +162,28 @@ class LeadDeleteView(OrganizorAndLoginRequiredMixin, DeleteView):
         return queyset
     
     def get_success_url(self):
+
         return reverse('leads:leads')   
+
+class AssignLeadView(OrganizorAndLoginRequiredMixin, FormView):
+    template_name = 'lead_assign.html'
+    form_class = AssignLeadForm
+
+    def form_valid(self,form):
+        form.save()
+        return super(AssignLeadView, self).form_valid(form)
+
+    def get_queryset(self):
+        user = self.request.user
+        queyset = Lead.objects.filter(organization=user.userprofile, agent__isnull=True)
+        return queyset
+
+    def get_form_kwargs(self, **kwargs):
+        kwargs = super(AssignLeadView, self).get_form_kwargs(**kwargs)
+        kwargs.update({
+            "request": self.request
+        })
+        return kwargs
+
+    def get_success_url(self):
+        return reverse('leads:leads')
