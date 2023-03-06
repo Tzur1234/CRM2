@@ -4,7 +4,7 @@ from django.db.models.signals import post_save, pre_save
 
 class User(AbstractUser):
     is_organizor = models.BooleanField(default=True)
-    is_organizor = models.BooleanField(default=False)
+    is_agent = models.BooleanField(default=False)
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
