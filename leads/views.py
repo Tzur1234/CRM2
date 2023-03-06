@@ -46,7 +46,13 @@ class DashboardPageView(LoginRequiredMixin, TemplateView):
             # 2  - Filter by agent
              queryset =  queryset.filter(agent__user=user)
         
-        context["leads"] = queryset 
+        context["leads"] = queryset
+        
+        # Organizor
+        if self.request.user.is_organizor:
+            unassign_leads = Lead.objects.filter(organization=user.userprofile, agent__isnull=True)
+            context["unassign_leads"] = unassign_leads 
+
         return context
     
 class HomePageView(TemplateView):
@@ -56,21 +62,29 @@ class LeadListView(LoginRequiredMixin, ListView):
     template_name = 'lead_list.html'
     context_object_name = 'leads'
     
-    # is_orgenizor -> show all the leade form your organization
-    # is_agent -> show all lead that relate to you
     def get_queryset(self):
         user = self.request.user
         
         if user.is_organizor:
-            queryset = Lead.objects.filter(organization=user.userprofile)
+            queryset = Lead.objects.filter(organization=user.userprofile, agent__isnull=False)
         else:
             #  1 - Filter by organization
-             queryset = Lead.objects.filter(organization=user.agent.organization)
+             queryset = Lead.objects.filter(organization=user.agent.organization, agent__isnull=False)
             # 2  - Filter by agent
              queryset =  queryset.filter(agent__user=user)
         
         return queryset
-     
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        user = self.request.user
+        # Organizor   
+        if user.is_organizor:
+            unassign_leads = Lead.objects.filter(organization=user.userprofile, agent__isnull=True)
+            context["unassign_leads"] = unassign_leads 
+        return context
+       
 class LeadCreateView(OrganizorAndLoginRequiredMixin, CreateView):
     template_name = 'lead_create.html'
     model = Lead
@@ -93,6 +107,7 @@ class LeadCreateView(OrganizorAndLoginRequiredMixin, CreateView):
 
     # return all organzations' leads
     def get_queryset(self):
+        user = self.request.user
         queryset = Lead.objects.filter(organization=user.userprofile)
         return queryset
     
@@ -115,6 +130,7 @@ class LeadDetailView(LoginRequiredMixin, DetailView):
              queryset =  queryset.filter(agent__user=user)
         
         return queryset
+
 class LeadUpdateView(OrganizorAndLoginRequiredMixin, UpdateView):
     template_name = 'lead_update.html'
     model = Lead
@@ -123,6 +139,7 @@ class LeadUpdateView(OrganizorAndLoginRequiredMixin, UpdateView):
 
     # return all organzations' leads
     def get_queryset(self):
+        user = self.request.user
         queryset = Lead.objects.filter(organization=user.userprofile)
         return queryset
     
@@ -137,6 +154,7 @@ class LeadDeleteView(OrganizorAndLoginRequiredMixin, DeleteView):
     
     # return all organzations' leads
     def get_queryset(self):
+        user = self.request.user
         queyset = Lead.objects.filter(organization=user.userprofile)
         return queyset
     
