@@ -92,9 +92,9 @@
                         <div class="dropdown-menu dropdown-menu-right">
                            
                             
-                            <a class="dropdown-item active" href="#">Edit</a>
-                            <a class="dropdown-item" href="#">Delete</a>
-                            <a class="dropdown-item" href="#">View</a>
+                            <a class="dropdown-item active" href="{% url 'agents:update-agent' pk=agent.id  %}">Edit</a>
+                            <a class="dropdown-item" href="{% url 'agents:delete-agent' pk=agent.id  %}">Delete</a>
+                            <a class="dropdown-item" href="{% url 'agents:detail-agent' pk=agent.id  %}">View</a>
                             
                         </div>
                     </div>

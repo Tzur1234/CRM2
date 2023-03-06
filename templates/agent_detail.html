@@ -1,0 +1,35 @@
+{% extends "base.html" %} {% block title %} Agent Detail {% endblock title %}
+
+<div class="app-properties-container">
+  <div class="row h-100 m-0">
+    <div class="col-lg-9 py-grid d-flex flex-column h-100" data-simplebar>
+      <div class="container-fluid page__container">
+        {%block content %}
+
+        <div class="card card-form d-flex flex-column flex-sm-row mt-5">
+          <div class="card-form__body card-body-form-group flex">
+            <div class="media align-items-center">
+                
+                <div class="card-body">
+                    <h5 class="card-title">
+                    {{agent.user.username}}
+                    </h5>
+                    <p class="card-text">
+                    Some quick example text to build on the card title and make up
+                    the bulk of the card's content.
+                    </p>
+                    <a class="btn btn-primary" href="{% url 'agents:update-agent' pk=agent.id  %}">Edit</a>
+                    <a class="btn btn-primary" href="{% url 'agents:delete-agent' pk=agent.id  %}">Delete</a>
+                    
+                    
+                </div>
+            </div>
+            </div>
+          </div>
+
+          {% endblock content %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
