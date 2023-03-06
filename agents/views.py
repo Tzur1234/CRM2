@@ -20,10 +20,13 @@ from . import forms
 
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .mixins import OrganizorAndLoginRequiredMixin
 
 from .forms import AgentCreateForm
 
-class AgentListView(LoginRequiredMixin, ListView):
+import random
+
+class AgentListView(OrganizorAndLoginRequiredMixin, ListView):
     template_name = 'agent_list.html'
     model = Agent
     context_object_name = 'agents'
@@ -33,20 +36,25 @@ class AgentListView(LoginRequiredMixin, ListView):
         organization = self.request.user.userprofile
         return Agent.objects.filter(organization=organization)
 
-class AgentCreateView(LoginRequiredMixin, CreateView):
+class AgentCreateView(OrganizorAndLoginRequiredMixin, CreateView):
     template_name = 'agent_create.html'
     form_class = AgentCreateForm 
     context_object_name = 'agent'
 
     def form_valid(self, form): 
-        # Add organization field
-        agent = form.save(commit=False)
-        agent.organization = self.request.user.userprofile
-        agent.save()
-    
+        user = form.save(commit=False)       
         
+        # Set user status
+        user.is_organizor = False
+        user.is_agent = True
+        # set user pass
+        user.set_password(f'{random.randint(0,1000)}')
+        user.save()
+        # create agent object
+        agent = Agent.objects.create(user=user, organization=self.request.user.userprofile)
+        
+    
         # send email 
-
         send_mail(
             "You have been added as an agent !",
             "Please reset your password in order to start working ",
@@ -60,7 +68,7 @@ class AgentCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('agents:agent-list')
 
-class AgentDetailView(LoginRequiredMixin, DetailView):
+class AgentDetailView(OrganizorAndLoginRequiredMixin, DetailView):
 
     template_name = 'agent_detail.html'
     model = Agent
@@ -70,7 +78,7 @@ class AgentDetailView(LoginRequiredMixin, DetailView):
         organization = self.request.user.userprofile
         return Agent.objects.filter(organization=organization)
 
-class AgentUpdateView(LoginRequiredMixin, UpdateView):
+class AgentUpdateView(OrganizorAndLoginRequiredMixin, UpdateView):
     template_name = 'agent_create.html'
     model = Agent
     context_object_name = 'agent'
@@ -83,10 +91,7 @@ class AgentUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('agents:agent-list')
         
-    
-
-
-class AgentDeleteView(LoginRequiredMixin, DeleteView):
+class AgentDeleteView(OrganizorAndLoginRequiredMixin, DeleteView):
     model = Agent
     template_name = 'agent_delete.html'
     context_object_name = 'agent' 

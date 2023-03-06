@@ -18,6 +18,8 @@ class Lead(models.Model):
     first_name = models.CharField(max_length=20, null=True, blank=True)
     last_name = models.CharField(max_length=20, null=True, blank=True)
     age = models.IntegerField(default=0, null=True, blank=True)
+    agent = models.ForeignKey('Agent', on_delete=models.SET_NULL, null=True, blank=True)
+    organization = models.ForeignKey("UserProfile", on_delete=models.CASCADE, null=True)
     image = models.ImageField()
 
     def __str__(self):
@@ -37,6 +39,14 @@ def post_user_created_signal(sender, instance, created, **kwargs):
         UserProfile.objects.create(user=instance)
 
 post_save.connect(post_user_created_signal, sender=User)
+
+
+def post_agent_created_signal(sender, instance, created, **kwargs):
+    if created:
+        instance.user.is_organizor = False
+        instance.user.is_agent = True
+
+post_save.connect(post_agent_created_signal, sender=Agent)
 
 
 

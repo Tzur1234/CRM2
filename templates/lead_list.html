@@ -12,7 +12,9 @@
     <div class="d-flex justify-content-between">
       <h1>Leads</h1>
       <hr>
+      {% if request.user.is_organizor %}
       <a class="btn btn-primary m-2" href="{% url 'leads:create-lead' %}">Create Lead</a>
+      {% endif %}
     </div>
     <div class="card card-form">
       <div class="row no-gutters">
