@@ -9,4 +9,5 @@ urlpatterns = [
     path('detail-lead/<int:pk>/', views.LeadDetailView.as_view(), name="detail-lead"),
     path('update-lead/<int:pk>/', views.LeadUpdateView.as_view(), name="update-lead"),
     path('delete-lead/<int:pk>/', views.LeadDeleteView.as_view(), name="delete-lead"),
+    path('assign-lead/<int:pk>/', views.AssignLeadView.as_view(), name="assign-lead"),
 ]
