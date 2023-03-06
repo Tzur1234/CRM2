@@ -24,6 +24,8 @@ from .mixins import OrganizorAndLoginRequiredMixin
 
 from .forms import AgentCreateForm
 
+import random
+
 class AgentListView(OrganizorAndLoginRequiredMixin, ListView):
     template_name = 'agent_list.html'
     model = Agent
@@ -40,22 +42,19 @@ class AgentCreateView(OrganizorAndLoginRequiredMixin, CreateView):
     context_object_name = 'agent'
 
     def form_valid(self, form): 
-        # Add organization field
-        agent = form.save(commit=False)
-        agent.organization = self.request.user.userprofile
+        user = form.save(commit=False)       
+        
         # Set user status
+        user.is_organizor = False
+        user.is_agent = True
+        # set user pass
+        user.set_password(f'{random.randint(0,1000)}')
+        user.save()
+        # create agent object
+        agent = Agent.objects.create(user=user, organization=self.request.user.userprofile)
         
-        
-        agent.user.is_organizor = False
-        agent.user.is_agent = True
-
-        
-        
-        agent.save()
     
-        
         # send email 
-
         send_mail(
             "You have been added as an agent !",
             "Please reset your password in order to start working ",
@@ -92,9 +91,6 @@ class AgentUpdateView(OrganizorAndLoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('agents:agent-list')
         
-    
-
-
 class AgentDeleteView(OrganizorAndLoginRequiredMixin, DeleteView):
     model = Agent
     template_name = 'agent_delete.html'
