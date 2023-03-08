@@ -21,8 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 import environ
-env = environ.Env()
-environ.Env.read_env()
+env = environ.Env(DEBUG=(bool,False))
+
+
+
+READ_DOT_ENV_FILE = env.bool('READ_DOT_ENV_FILE', default=False)
+if READ_DOT_ENV_FILE:
+    environ.Env.read_env()
+
 
 SECRET_KEY=env('SECRET_KEY')
 
