@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% load static %} {% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<div class="layout-login-centered-boxed">
+  <div class="layout-login-centered-boxed__form">
+    <div class="card card-body">
+      <div class="d-flex align-items-center mt-2">
+        <h5>To delete <u>{{category.name}}</u> ?</h5><hr />
+
+        <form action="." method="post" enctype="multipart/form-data">
+          <div class="row">
+
+            {% csrf_token %} {{form|crispy}}
+          </div>
+          <div class="row m-2">
+            <input class="btn btn-primary" type="submit" value="Yes"/>
+            <a class="btn btn-secondary" href="{% url 'leads:category-lead' %}">Cancel</a>
+          </div>
+
+          
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

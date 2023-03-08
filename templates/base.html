@@ -518,6 +518,13 @@
                                     </a>
                                 </li>
 
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button" href="{% url 'leads:category-lead' %}">
+                                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">location_on</i>
+                                        <span class="sidebar-menu-text">Lead Category</span>
+                                    </a>
+                                </li>
+
                                 {% if request.user.is_organizor %}
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button" href="{% url 'agents:agent-list' %}">
