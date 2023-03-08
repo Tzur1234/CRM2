@@ -20,6 +20,7 @@ class Lead(models.Model):
     age = models.IntegerField(default=0, null=True, blank=True)
     agent = models.ForeignKey('Agent', on_delete=models.SET_NULL, null=True, blank=True)
     organization = models.ForeignKey("UserProfile", on_delete=models.CASCADE, null=True)
+    category = models.ForeignKey("Category", on_delete=models.SET_NULL, null=True, blank=True)
     image = models.ImageField()
 
     def __str__(self):
@@ -29,9 +30,17 @@ class Lead(models.Model):
 class Agent(models.Model):
     user = models.OneToOneField(User ,on_delete=models.CASCADE, related_name="agent")
     organization = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
+    icon = models.ImageField()
 
     def __str__(self):
         return self.user.username
+
+class Category(models.Model):
+    name = models.CharField(max_length=15)
+    organization = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.name}'
     
 
 def post_user_created_signal(sender, instance, created, **kwargs):

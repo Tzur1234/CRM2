@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% load static %} {% load crispy_forms_tags %}
+<hr />
+
+{% block content %}
+<div class="layout-login-centered-boxed">
+    <div class="layout-login-centered-boxed__form">
+        
+    <h1>Assign Lead to "{{category_name}}" Category</h1>
+    <div class="card card-body">
+     
+      <div class="d-flex align-items-center mt-2">
+          <!-- form -->
+          <form method="post">
+            {% csrf_token %} {{form|crispy}}
+            <input type="submit" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock content %}
+</div>

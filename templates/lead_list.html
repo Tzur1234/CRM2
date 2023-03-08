@@ -195,11 +195,14 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                
                                 
-                                <a class="dropdown-item active" href="{% url 'leads:update-lead' pk=lead.id %}">Edit</a>
-                                <a class="dropdown-item" href="{% url 'leads:delete-lead' pk=lead.id %}">Delete</a>
-                                <a class="dropdown-item" href="{% url 'leads:detail-lead' pk=lead.id %}">View</a>
-                                {% if requeat.user.is_organizor %}                                  
+                               
+                                {% if request.user.is_organizor %}                                  
                                   <a class="dropdown-item" href="{% url 'leads:assign-lead' pk=lead.id %}">Assign</a>
+
+                                {% else %}
+                                  <a class="dropdown-item active" href="{% url 'leads:update-lead' pk=lead.id %}">Edit</a>
+                                  <a class="dropdown-item" href="{% url 'leads:delete-lead' pk=lead.id %}">Delete</a>
+                                  <a class="dropdown-item" href="{% url 'leads:detail-lead' pk=lead.id %}">View</a>
                                 {% endif %}
                                 
                             </div>
