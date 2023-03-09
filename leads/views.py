@@ -337,9 +337,6 @@ class AssignLeadToCategory(OrganizorAndLoginRequiredMixin, FormView):
         lead = form.cleaned_data['leads']
         category = form.cleaned_data['categories']
 
-        print(lead)
-        print(category)
-
         # Assign
         lead.category = category 
         lead.save()

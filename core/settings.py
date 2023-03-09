@@ -21,20 +21,27 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 import environ
-env = environ.Env()
-environ.Env.read_env()
+env = environ.Env(DEBUG=(bool,False))
+
+
+
+READ_DOT_ENV_FILE = env.bool('READ_DOT_ENV_FILE', default=False)
+if READ_DOT_ENV_FILE:
+    environ.Env.read_env()
+
 
 SECRET_KEY=env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,6 +61,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -86,10 +94,32 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / env('DATABASE_NAME'),
+#     }
+# }
+
+DB_NAME= env('DB_NAME')
+DB_USER= env('DB_USER')
+DB_PASSWORD= env('DB_PASSWORD')
+DB_HOST= env('DB_HOST')
+DB_PORT= env('DB_PORT')
+DB_URL = env('DB_URL')
+
+
+
+print(type(DB_PORT ))
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / env('DATABASE_NAME'),
+        'ENGINE': DB_URL,
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': DB_HOST,
+        'PORT': DB_PORT,
     }
 }
 
@@ -137,7 +167,7 @@ STATICFILES_DIRS = [
 ]
 
 # the name of the foder where all of the static files will be store in DEPLOY stage
-STATIC_ROOT = "static_root"
+STATIC_ROOT = BASE_DIR / "static_root"
 
 
 MEDIA_URL = 'media/'
@@ -166,3 +196,5 @@ LOGOUT_REDIRECT_URL = 'home_page'
 LOGIN_URL = '/login'
 
 AUTH_USER_MODEL = 'leads.User'
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
