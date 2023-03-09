@@ -35,7 +35,7 @@ SECRET_KEY=env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 # Application definition
@@ -109,8 +109,6 @@ DB_PORT= env('DB_PORT')
 DB_URL = env('DB_URL')
 
 
-
-print(type(DB_PORT ))
 
 DATABASES = {
     'default': {
