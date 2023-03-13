@@ -282,13 +282,22 @@
               
 
 
-                                      
+               
+            {% if messages %}            
+                {% for message in messages %}
+                    <div class="alert alert-{{message.extra_tags}} mb-2" role="alert">
+                        {{message}}
+                    </div>         
+                             
+                {% endfor %}       
+            {% endif %}
     
 
                 <!-- Header Layout Content -->
 
                 {% block content %}
-                  
+                
+                                 
                 {% endblock content %}
   
                 
@@ -342,10 +351,12 @@
                         </div>
                     </div>
 
+                    {% if request.user.is_organizor %}
                     <div class="py-4 text-center flex-shrink-0">
-                        <a style="min-width: 157px;" href="/signup.html" class="btn btn-primary">Create <i class="material-icons ml-1">add</i></a>
+                        <a style="min-width: 157px;" href="{% url 'leads:create-lead' %}" class="btn btn-primary">Create Lead <i class="material-icons ml-1">add</i></a>
                     </div>
-
+                    {% endif %}
+                   
                     <ul class="nav nav-tabs sidebar-tabs flex-shrink-0" role="tablist">
                         <li class="nav-item"><a class="nav-link active show" id="sm-menu-tab" href="#sm-menu" data-toggle="tab" role="tab" aria-controls="sm-menu" aria-selected="true">Menu</a></li>
                         <li class="nav-item"><a class="nav-link" href="#sm-account" data-toggle="tab">Account</a></li>
@@ -361,174 +372,23 @@
                                     </a>
                                 </li>
 
-                                <li class="sidebar-menu-item">
-                                    <a class="sidebar-menu-button" data-toggle="collapse" href="#pages_menu">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">description</i>
-                                        <span class="sidebar-menu-text">Pages</span>
-                                        <span class="badge badge-warning rounded-circle badge-notifications ml-auto" style="padding: .1875rem .375rem;">8</span>
-                                        <span class="sidebar-menu-toggle-icon"></span>
-                                    </a>
-                                    <ul class="sidebar-submenu collapse" id="pages_menu">
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="edit-account.html">
-                                                <span class="sidebar-menu-text">Edit Account</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="appointments.html">
-                                                <span class="sidebar-menu-text">Appointments</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="properties.html">
-                                                <span class="sidebar-menu-text">Properties</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="blog.html">
-                                                <span class="sidebar-menu-text">Blog</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="trello.html">
-                                                <span class="sidebar-menu-text">Trello</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="chat.html">
-                                                <span class="sidebar-menu-text">Chat</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="course.html">
-                                                <span class="sidebar-menu-text">Course</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="tickets.html">
-                                                <span class="sidebar-menu-text">Tickets</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="login.html">
-                                                <span class="sidebar-menu-text">Login</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="signup.html">
-                                                <span class="sidebar-menu-text">Sign up</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
 
-                                <li class="sidebar-menu-item">
-                                    <a class="sidebar-menu-button" data-toggle="collapse" href="#components_menu">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">developer_board</i>
-                                        <span class="sidebar-menu-text">UI Elements</span>
-                                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
-                                    </a>
-                                    <ul class="sidebar-submenu collapse" id="components_menu">
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="ui-buttons.html">
-                                                <span class="sidebar-menu-text">Buttons</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="ui-alerts.html">
-                                                <span class="sidebar-menu-text">Alerts</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="ui-avatars.html">
-                                                <span class="sidebar-menu-text">Avatars</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="ui-modals.html">
-                                                <span class="sidebar-menu-text">Modals</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="ui-icons.html">
-                                                <span class="sidebar-menu-text">Icons</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="ui-range-sliders.html">
-                                                <!-- tune or low_priority or linear_scale or space_bar or swap_calls -->
-                                                <span class="sidebar-menu-text">Range Sliders</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="ui-datetime.html">
-                                                <span class="sidebar-menu-text">Time &amp; Date</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="ui-tables.html">
-                                                <span class="sidebar-menu-text">Tables</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="ui-tabs.html">
-                                                <span class="sidebar-menu-text">Tabs</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="ui-loaders.html">
-                                                <span class="sidebar-menu-text">Loaders</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="ui-drag.html">
-                                                <span class="sidebar-menu-text">Drag &amp; Drop</span>
-                                            </a>
-                                        </li>
-                                        <li class="sidebar-menu-item">
-                                            <a class="sidebar-menu-button" href="ui-pagination.html">
-                                                <span class="sidebar-menu-text">Pagination</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li class="sidebar-menu-item">
-                                    <a class="sidebar-menu-button" href="ui-charts.html">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">donut_small</i>
-                                        <span class="sidebar-menu-text">Charts</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item">
-                                    <a class="sidebar-menu-button" href="ui-forms.html">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">text_format</i>
-                                        <span class="sidebar-menu-text">Forms</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item">
-                                    <a class="sidebar-menu-button" href="fullcalendar.html">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">date_range</i>
-                                        <span class="sidebar-menu-text">Calendar</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-menu-item">
-                                    <a class="sidebar-menu-button" href="ui-vector-maps.html">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">location_on</i>
-                                        <span class="sidebar-menu-text">Vector Maps</span>
-                                    </a>
-                                </li>
 
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button" href="{% url 'leads:category-lead' %}">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">location_on</i>
-                                        <span class="sidebar-menu-text">Lead Category</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="sidebar-menu-icon sidebar-menu-icon--left material-icons" viewBox="0 0 16 16">
+                                            <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/>
+                                          </svg>
+                                        <span class="sidebar-menu-text">Categories</span>
                                     </a>
                                 </li>
 
                                 {% if request.user.is_organizor %}
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button" href="{% url 'agents:agent-list' %}">
-                                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">location_on</i>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="sidebar-menu-icon sidebar-menu-icon--left material-icons" viewBox="0 0 16 16">
+                                                <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Zm9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382l.045-.148ZM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z"/>
+                                              </svg>
                                             <span class="sidebar-menu-text">Agents</span>
                                         </a>
                                     </li>
@@ -537,7 +397,10 @@
                                 
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button" href="{% url 'leads:leads' %}">
-                                        <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">location_on</i>
+                                        
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="sidebar-menu-icon sidebar-menu-icon--left material-icons" viewBox="0 0 16 16">
+                                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                                          </svg>
                                         <span class="sidebar-menu-text">Leads</span>
                                     </a>
                                 </li>

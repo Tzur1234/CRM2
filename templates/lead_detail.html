@@ -1,4 +1,11 @@
 {% extends "base.html" %} {% block title %} Lead Detail {% endblock title %}
+{% load static %}
+
+
+{% block static %}
+     <link rel="stylesheet" href="{% static 'asset3/css/style.css' %}"> 
+{% endblock static %}
+
 
 <div class="app-properties-container">
   <div class="row h-100 m-0">
@@ -6,36 +13,70 @@
       <div class="container-fluid page__container">
         {%block content %}
 
-        <div class="card card-form d-flex flex-column flex-sm-row mt-5">
-          <div class="card-form__body card-body-form-group flex">
-            <div class="media align-items-center">
-                <div class="avatar avatar-xs mr-4">
-                    <img
-                    src="{{lead.image.url}}"
-                    alt="Avatar"
-                    class="avatar-img rounded-circle"
-                    />
+          <section class="vh-100" style="background-color: #f4f5f7;">
+            <div class="container py-5 h-100">
+              <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-lg-7 mb-4 mb-lg-0">
+                  <div class="card mb-3" style="border-radius: .5rem;">
+                    <div class="row g-0">
+                      <div class="col-md-4 gradient-custom text-center text-white"
+                        style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                        {% if lead.image %}
+                          <img src="{{lead.image.url}}"
+                          alt="Avatar avatar-img rounded-circle" class="img-fluid my-5" style="width: 100px;" />
+                        {% endif %}
+                        <h5>{{lead.first_name}}  {{lead.last_name}}</h5>
+                        <p> {{lead.category}}</p>
+                        <a href="{% url 'leads:update-lead' pk=lead.id %}">
+                          <i class="far fa-edit mb-5"></i>
+                        </a>
+                        
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body p-4">
+                          <h6>Information</h6>
+                          <hr class="mt-0 mb-4">
+                          <div class="row pt-1">
+                            <div class="col-6 mb-3">
+                              <h6>Email</h6>                             
+                               <p class="text-muted">{{lead.email}}</p>
+                             
+                            </div>
+                            <div class="col-6 mb-3">
+                              <h6>Phone</h6>
+                              <p class="text-muted">{{lead.area_code}}{{lead.phone}}</p>
+                            </div>
+                          </div>
+                          <h6>Projects</h6>
+                          <hr class="mt-0 mb-4">
+                          <div class="row pt-1">
+                            <div class="col-6 mb-3">
+                              <h6>Recent</h6>
+                              <p class="text-muted">Lorem ipsum</p>
+                            </div>
+                            <div class="col-6 mb-3">
+                              <h6>Most Viewed</h6>
+                              <p class="text-muted">Dolor sit amet</p>
+                            </div>
+                          </div>
+                          <div class="d-flex justify-content-between">
+                            <a class="btn btn-danger" href="{% url 'leads:delete-lead' pk=lead.id %}">Delete</a>
+                            <a class="btn btn-primary" href="{% url 'leads:leads' %}">All leads</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="card-body">
-                    <h5 class="card-title">
-                    {{lead.first_name}} {{lead.last_name}}
-                    </h5>
-                    <p class="card-text">
-                    Some quick example text to build on the card title and make up
-                    the bulk of the card's content.
-                    </p>
-                    <a class="btn btn-primary" href="{% url 'leads:update-lead' pk=lead.id %}">Edit</a>
-                    <a class="btn btn-primary" href="{% url 'leads:delete-lead' pk=lead.id %}">Delete</a>
-                    
-                    
-                </div>
+              </div>
             </div>
-            </div>
-          </div>
+          </section>
 
-          {% endblock content %}
+        {% endblock content %}
         </div>
       </div>
     </div>
   </div>
 </div>
+
+

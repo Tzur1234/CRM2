@@ -43,7 +43,7 @@
 
                   <th>LEAD</th>
 
-                  <th style="width: 37px">AGE</th>
+                  <th style="width: 37px">AGENT</th>
                   <th style="width: 37px">CATEGORY</th>
                   <th style="width: 120px">Last Activity</th>
                   <th style="width: 51px">Earnings</th>
@@ -77,14 +77,20 @@
                             />
                         </div>
                         <div class="media-body">
+                          <a href="{% url 'leads:detail-lead' lead.id %}">
                             <span class="js-lists-values-employee-name"
                             >{{lead.first_name}} {{lead.last_name}}</span
                             >
+                          </a>
                         </div>
                         </div>
                     </td>
 
-                    <td><span>{{lead.age}}</span></td>
+                    <td>
+                      <a href="{% url 'agents:detail-agent' pk=lead.agent.user.id%}">
+                        <span>{{lead.agent.user.username}}</span>
+                      </a>
+                    </td>
                     <td><span class="badge badge-warning">{{lead.category}}</span></td>
                     <td><small class="text-muted">3 days ago</small></td>
                     <td>&dollar;12,402</td>
@@ -177,9 +183,12 @@
                                 />
                             </div>
                             <div class="media-body">
+                              <a href="{% url 'leads:detail-lead' lead.id %}">
                                 <span class="js-lists-values-employee-name"
                                 >{{lead.first_name}} {{lead.last_name}}</span
                                 >
+                              </a>
+                               
                             </div>
                             </div>
                         </td>

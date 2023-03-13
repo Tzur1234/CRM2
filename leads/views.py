@@ -1,3 +1,5 @@
+import logging
+
 from django.core.mail import send_mail
 
 from django.shortcuts import render
@@ -16,12 +18,18 @@ from django.views.generic import (
     DetailView,
     UpdateView,
     DeleteView,
-    CreateView
+    CreateView,
+    View
 )
+
+from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from agents.mixins import OrganizorAndLoginRequiredMixin
 
 from django.views.generic.edit import FormView
+
+from django.contrib import messages
+
 
 class SignUpView(CreateView):
     template_name = 'registration/signup.html'
@@ -74,6 +82,8 @@ class LeadListView(LoginRequiredMixin, ListView):
              queryset = Lead.objects.filter(organization=user.agent.organization, agent__isnull=False)
             # 2  - Filter by agent
              queryset =  queryset.filter(agent__user=user)
+        messages.success(self.request, 'You have successfuly created new lead!', extra_tags='primary')
+        logging.warning("My lead list ")
         
         return queryset
     
@@ -104,6 +114,10 @@ class LeadCreateView(OrganizorAndLoginRequiredMixin, CreateView):
             "test2gmail.com",
             ['test2gmail.com']
         )
+
+        # showing a message
+        messages.success(self.request, 'You have successfuly created new lead!')
+         
 
         return super(LeadCreateView, self).form_valid(form)
 
@@ -311,6 +325,7 @@ class DeleteCategoryView(OrganizorAndLoginRequiredMixin, DeleteView):
         return reverse('leads:category-lead')
 
 class AssignLeadToCategory(OrganizorAndLoginRequiredMixin, FormView):
+    
     template_name = 'lead_assign_to_category.html'
     form_class = AssignLeadToCategoryForm
 
@@ -346,4 +361,26 @@ class AssignLeadToCategory(OrganizorAndLoginRequiredMixin, FormView):
    
 
     def get_success_url(self):       
+
         return reverse('leads:category-lead')
+
+
+
+
+# the main purpose- to return a json object of all the leads
+class LeadJsonView(View):
+    def get(self, request, *args, **kwargs):
+        qs = list(Lead.objects.all().values())
+        # print(qs)
+        return  JsonResponse(qs, safe=False)
+
+
+
+
+
+
+
+
+
+
+

@@ -67,12 +67,14 @@
                     <td>
                         <div class="media align-items-center">
                         <div class="avatar avatar-xs mr-2">
-                            <img
-                            src="{{agent.image.url}}"
-                            alt="Avatar"
-                            class="avatar-img rounded-circle"
-                            />
-                        </div>
+                          {% if agent.image %}
+                          <img
+                          src="{{agent.image.url}}"
+                          alt="Avatar"
+                          class="avatar-img rounded-circle"
+                          />
+                          {% endif %}
+                                                    </div>
                         <div class="media-body">
                             <span class="js-lists-values-employee-name"
                             >{{agent.user.username}}</span
