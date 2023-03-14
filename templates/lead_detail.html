@@ -1,41 +1,131 @@
 {% extends "base.html" %} {% block title %} Lead Detail {% endblock title %}
+{% load static %}
 
-<div class="app-properties-container">
-  <div class="row h-100 m-0">
-    <div class="col-lg-9 py-grid d-flex flex-column h-100" data-simplebar>
-      <div class="container-fluid page__container">
-        {%block content %}
 
-        <div class="card card-form d-flex flex-column flex-sm-row mt-5">
-          <div class="card-form__body card-body-form-group flex">
-            <div class="media align-items-center">
-                <div class="avatar avatar-xs mr-4">
-                    <img
-                    src="{{lead.image.url}}"
-                    alt="Avatar"
-                    class="avatar-img rounded-circle"
-                    />
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">
-                    {{lead.first_name}} {{lead.last_name}}
+{% block static %}
+     <link rel="stylesheet" href="{% static 'asset3/css/style.css' %}"> 
+{% endblock static %}
+
+
+
+  
+
+      {% block content %}
+      <div class="mdk-header-layout__content mdk-header-layout__content--fullbleed mdk-header-layout__content--scrollable page">
+        <div class="container-fluid page__container">
+
+      
+     
+          <div class="row d-flex justify-content-center align-items-center h-100 mt-5" data-has-scrolling-region>
+            <div class="col col-lg-7 mb-4 mb-lg-0">
+              <div class="card mb-3" style="border-radius: .5rem;">
+                <div class="row g-0">
+                  <div class="col-md-4 gradient-custom text-center text-white"
+                    style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                    {% if lead.image %}
+                      <img src="{{lead.image.url}}"
+                      alt="Avatar avatar-img rounded-circle" class="img-fluid my-5" style="width: 250px;" />
+                    {% endif %}
+                    <h5>
+                      {% if lead.first_name %}
+                      {{lead.first_name}}  
+                     {% endif %}
+                     {% if lead.last_name %}
+                      {{lead.last_name}} 
+                     {% endif %}
                     </h5>
-                    <p class="card-text">
-                    Some quick example text to build on the card title and make up
-                    the bulk of the card's content.
-                    </p>
-                    <a class="btn btn-primary" href="{% url 'leads:update-lead' pk=lead.id %}">Edit</a>
-                    <a class="btn btn-primary" href="{% url 'leads:delete-lead' pk=lead.id %}">Delete</a>
+                    <p> {{lead.category}}</p>
+                    <a href="{% url 'leads:update-lead' pk=lead.id %}">
+                      <i class="far fa-edit mb-5"></i>
+                    </a>
                     
-                    
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body p-4">
+                      <h6>Information</h6>
+                      <hr class="mt-0 mb-4">
+                      <div class="row pt-1">
+                        <div class="col-6 mb-3">
+                          <h6>Email</h6>                             
+                           <p class="text-muted">{{lead.email}}</p>
+                         
+                        </div>
+                        <div class="col-6 mb-3">
+                          <h6>Phone</h6>
+                          <p class="text-muted">{{lead.area_code}}{{lead.phone}}</p>
+                        </div>
+                      </div>
+                      <h6>Status</h6>
+                      <hr class="mt-0 mb-4">
+                      <div class="row pt-1">
+                        <div class="col-6 mb-3">
+                          <h6>Agent</h6>
+                          <p class="text-muted">{{lead.agent}}</p>
+                        </div>
+                        <div class="col-6 mb-3">
+                          <h6>Category</h6>
+                          <p class="text-muted">{{lead.category}}</p>
+                        </div>
+                      </div>
+                      
+                      <div class="d-flex justify-content-between">
+                        <a class="btn btn-danger" href="{% url 'leads:delete-lead' pk=lead.id %}">Delete</a>
+                        <a class="btn btn-primary" href="{% url 'leads:leads' %}">All leads</a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
+                <div class="row d-flex justify-content-center align-items-center h-100 w-200">                   
+                  <div class="card mb-10">
+                    <div class="row g-0">
+                      <div class="col-md-12">
+                       
+                        <div class="d-flex justify-content-between my-2">
+                          <h2>FollowUps</h2>
+                          <a class="btn btn-primary m-2" href="{% url 'leads:create-followup' pk=lead.id %}">Add followups</a>
+                        </div>
+                        <hr>
+                        {% for followup in lead.followups.all %}
+                            <div class="card" style="border-radius: .5rem;">
+                              <div class="card-header">
+                              <strong> Date: </strong><u>{{followup.date_added}}</u>
+                              </div>
+                              <div class="card-body">
+                                <h5 class="card-title">Note: {{followup.note}}</h5>
+                                <p class="card-text">
+                                  {% if followup.my_file %}
+                                    <a href="{{followup.my_file.url}}" download>
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cloud-download-fill" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 0a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 4.095 0 5.555 0 7.318 0 9.366 1.708 11 3.781 11H7.5V5.5a.5.5 0 0 1 1 0V11h4.188C14.502 11 16 9.57 16 7.773c0-1.636-1.242-2.969-2.834-3.194C12.923 1.999 10.69 0 8 0zm-.354 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V11h-1v3.293l-2.146-2.147a.5.5 0 0 0-.708.708l3 3z"/>
+                                      </svg>
+                                    </a>
+                                  {% endif %}
+                                </p>
+                                <a href="{% url 'leads:update-followup' pk=followup.id lead_id=followup.lead.id %}" class="btn btn-primary">Update</a>
+                                <a href="{% url 'leads:delete-followup' pk=followup.id lead_id=followup.lead.id %}" class="btn btn-primary">Delete</a>
+                              </div>
+                            </div>
+                          
+                  
+                        
+                        {% endfor %}
+                      </div>   
+                    </div>
+                  </div>
+                </div>
+             
+              </div>                  
             </div>
-            </div>
-          </div>
+                                                
+        
+     
+      
+      
+    </div>div>
+  </div>div>
 
-          {% endblock content %}
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
+        
+      {% endblock content %}
+

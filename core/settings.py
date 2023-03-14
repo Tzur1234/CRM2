@@ -35,7 +35,7 @@ SECRET_KEY=env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+ALLOWED_HOSTS = [env('ALLOWED_HOSTS')]
 
 
 # Application definition
@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     # install app
     "crispy_forms",
     "crispy_bootstrap5",
+    'mathfilters',
     
 
     # local app
@@ -108,18 +109,26 @@ DB_HOST= env('DB_HOST')
 DB_PORT= env('DB_PORT')
 DB_URL = env('DB_URL')
 
+POSTGRES_READY = (
+    DB_NAME is not None and
+    DB_USER is not None and 
+    DB_PASSWORD is not None and
+    DB_HOST is not None and
+    DB_PORT is not None and
+    DB_URL is not None
+)
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': DB_URL,
-        'NAME': DB_NAME,
-        'USER': DB_USER,
-        'PASSWORD': DB_PASSWORD,
-        'HOST': DB_HOST,
-        'PORT': DB_PORT,
+if POSTGRES_READY: 
+    DATABASES = {
+        'default': {
+            'ENGINE': DB_URL,
+            'NAME': DB_NAME,
+            'USER': DB_USER,
+            'PASSWORD': DB_PASSWORD,
+            'HOST': DB_HOST,
+            'PORT': DB_PORT,
+        }
     }
-}
 
 
 # Password validation
@@ -196,3 +205,20 @@ LOGIN_URL = '/login'
 AUTH_USER_MODEL = 'leads.User'
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+
+import os
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
+}

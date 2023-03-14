@@ -38,10 +38,10 @@
                     </div>
                   </th>
 
-                  <th>LEAD</th>
+                  <th>AGENT</th>
 
-                  <th style="width: 37px">AGE</th>
-                  <th style="width: 37px">CATEGORY</th>
+                  <th class="text-center" style="width: 37px">ORGANIZATION</th>
+                  <th style="width: 70px">NUMBER OF LEADS</th>
                   <th style="width: 120px">Last Activity</th>
                   <th style="width: 51px">Earnings</th>
                   <th style="width: 24px"></th>
@@ -65,25 +65,28 @@
                     </td>
 
                     <td>
-                        <div class="media align-items-center">
-                        <div class="avatar avatar-xs mr-2">
-                            <img
-                            src="{{agent.image.url}}"
-                            alt="Avatar"
-                            class="avatar-img rounded-circle"
-                            />
-                        </div>
-                        <div class="media-body">
-                            <span class="js-lists-values-employee-name"
-                            >{{agent.user.username}}</span
-                            >
-                        </div>
+                      <div class="media align-items-center">
+                        
+                          {% if agent.image %}
+                            <div class="avatar avatar-xs mr-2">
+                                <img
+                                src="{{agent.image.url}}"
+                                alt="Avatar"
+                                class="avatar-img rounded-circle"
+                                />
+                            </div>
+                          {% endif %}
+                          <div class="media-body">
+                              <span class="js-lists-values-employee-name"
+                              >{{agent.user.username}}</span
+                              >
+                          </div>
                         </div>
                     </td>
                     
                     <td><span>{{agent.organization}}</span></td>
-                    <td><span class="badge badge-warning">{{agent.category}}</span></td>
-                    <td><small class="text-muted">3 days ago</small></td>
+                    <td><span class="badge badge-warning">{{agent.lead_set.all.count}}</span></td>
+                    <td><small class="text-muted">{{agent.user.last_login}}</small></td>
                     <td>&dollar;12,402</td>
                     <td>
                       <div class="dropdown ml-auto">
