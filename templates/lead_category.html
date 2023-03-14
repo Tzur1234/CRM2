@@ -11,7 +11,7 @@
           >
             <h4 class="card-header__title flex m-0">Recent Activity</h4>
            {% if request.user.is_organizor %}
-               <a class="btn btn-primatry" href="{% url 'leads:category-create' %}">Add New Category</a>       
+               <a class="btn btn-primary" href="{% url 'leads:category-create' %}">Add New Category</a>       
            {% endif %}
            
           </div>
@@ -46,8 +46,8 @@
                   <span class="{{category.html_class}}">{{category.name}}</span>
               </div>
 
-              <div class="flex">
-                <div class="d-flex align-items-middle">
+              <div class="flex ml-5">
+                <div class="d-flex align-items-middle ">
                   <strong class="text-15pt mr-1">{{category.name}}</strong>
                 </div>
                 <small class="text-muted">{{category.lead_set.count}} leads</small>

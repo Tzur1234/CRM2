@@ -1,3 +1,4 @@
+{% load mathfilters %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -43,6 +44,9 @@
 
     <!-- Vector Maps -->
     <link type="text/css" href="{% static 'assets/vendor/jqvmap/jqvmap.min.css'%}" rel="stylesheet">
+
+
+    <!-- Charts -->
 
 
 
@@ -332,7 +336,9 @@
                                     <div>{{request.user.email}}</div>
                                 </div>
                                 <div class="dropdown-divider"></div>
+                                {% if request.user.is_organisor %}
                                 <a class="dropdown-item active" href="{% url 'dashboard' %}">Dashboard</a>
+                                {% endif %}
                                 <a class="dropdown-item" href="profile.html">My profile</a>
                                 <a class="dropdown-item" href="edit-account.html">Edit account</a>
                                 <div class="dropdown-divider"></div>
@@ -340,16 +346,32 @@
                             </div>
                         </div>
                     </div>
-                    <div class="sidebar-stats row no-gutters align-items-center text-center border-bottom flex-shrink-0">
-                        <div class="sidebar-stats__col col">
-                            <div class="sidebar-stats__title">Traffic</div>
-                            <div class="sidebar-stats__value">49,401</div>
+                    {% if request.user.is_organizor %}
+                        <div class="sidebar-stats row no-gutters align-items-center text-center border-bottom flex-shrink-0">
+                            <div class="sidebar-stats__col col">
+                                <div class="sidebar-stats__title">Time</div>
+                                <div class="sidebar-stats__value">{{today}}</div>
+                            </div>
+                            <div class="sidebar-stats__col col border-left">
+                                <div class="sidebar-stats__title">Total Leads</div>
+                                <div class="sidebar-stats__value">{{request.user.userprofile.lead_set.all.count}}</div>
+                            </div>
                         </div>
-                        <div class="sidebar-stats__col col border-left">
-                            <div class="sidebar-stats__title">Earnings</div>
-                            <div class="sidebar-stats__value">$1,402</div>
+
+                    {%else%}
+                        <div class="sidebar-stats row no-gutters align-items-center text-center border-bottom flex-shrink-0">
+                            <div class="sidebar-stats__col col">
+                                <div class="sidebar-stats__title">Organization</div>
+                                <div class="sidebar-stats__value">{{request.user.agent.organization}}</div>
+                            </div>
+                            <div class="sidebar-stats__col col border-left">
+                                <div class="sidebar-stats__title">Total Leads</div>
+                                <div class="sidebar-stats__value">{{request.user.agent.lead_set.count}}</div>
+                            </div>
                         </div>
-                    </div>
+                      
+                    {% endif %}
+                    
 
                     {% if request.user.is_organizor %}
                     <div class="py-4 text-center flex-shrink-0">
@@ -365,12 +387,16 @@
                     <div class="tab-content">
                         <div id="sm-menu" class="tab-pane show active" role="tabpanel" aria-labelledby="sm-menu-tab">
                             <ul class="sidebar-menu flex">
+                               
+                                {% if request.user.is_organizor %}
                                 <li class="sidebar-menu-item active">
                                     <a class="sidebar-menu-button" href="{% url 'dashboard' %}">
                                         <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">dvr</i>
+                                        
                                         <span class="sidebar-menu-text">Dashboard</span>
                                     </a>
                                 </li>
+                                {% endif %}
 
 
 
@@ -511,7 +537,7 @@
 
 
                 <small class="text-dark-gray px-3 py-1">
-                    <strong>Thursday, 28 Feb</strong>
+                    <strong>{{today}}</strong>
                 </small>
 
                 <div class="list-group list-group-flush">

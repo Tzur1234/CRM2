@@ -22,9 +22,10 @@ from . import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .mixins import OrganizorAndLoginRequiredMixin
 
-from .forms import AgentCreateForm
+from .forms import AgentCreateForm, AgentUpdateForm
 
 import random
+
 
 class AgentListView(OrganizorAndLoginRequiredMixin, ListView):
     template_name = 'agent_list.html'
@@ -79,10 +80,10 @@ class AgentDetailView(OrganizorAndLoginRequiredMixin, DetailView):
         return Agent.objects.filter(organization=organization)
 
 class AgentUpdateView(OrganizorAndLoginRequiredMixin, UpdateView):
-    template_name = 'agent_create.html'
+    template_name = 'agent_update.html'
     model = Agent
     context_object_name = 'agent'
-    form_class = AgentCreateForm
+    form_class = AgentUpdateForm
 
     def get_queryset(self):
         organization = self.request.user.userprofile

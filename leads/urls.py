@@ -4,6 +4,7 @@ from leads import views
 
 app_name="leads"
 urlpatterns = [
+    path('chart/', views.Chart.as_view(), name='chart'),
     path('json/', views.LeadJsonView.as_view(), name='json-view'),
     path('', views.LeadListView.as_view(), name="leads"),
     path('create-lead/', views.LeadCreateView.as_view(), name="create-lead"),
@@ -18,4 +19,11 @@ urlpatterns = [
     path('category-update/<int:pk>/', views.UpdateCategoryView.as_view(), name="category-update"),
     path('category-delete/<int:pk>/', views.DeleteCategoryView.as_view(), name="category-delete"),
     path('category-assign-lead-to-category/', views.AssignLeadToCategory.as_view(), name="category-assign-lead-to-category"),
+
+    path('create-followup/<int:pk>', views.CreateFollowUpView.as_view(), name="create-followup"),
+    # path('detail-lead/<int:pk>/', views.LeadDetailView.as_view(), name="detail-lead"),
+    path('update-followup/<int:pk>/<int:lead_id>', views.UpdateFollowUpView.as_view(), name="update-followup"),
+    path('delete-followup/<int:pk>/<int:lead_id>', views.DeleteFollowUpView.as_view(), name="delete-followup"),
+
+    
 ]

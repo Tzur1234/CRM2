@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     # install app
     "crispy_forms",
     "crispy_bootstrap5",
+    'mathfilters',
     
 
     # local app

@@ -45,7 +45,7 @@
 
                   <th style="width: 37px">AGENT</th>
                   <th style="width: 37px">CATEGORY</th>
-                  <th style="width: 120px">Last Activity</th>
+                  <th style="width: 120px">CREATED DATE</th>
                   <th style="width: 51px">Earnings</th>
                   <th style="width: 24px"></th>
                 </tr>
@@ -91,8 +91,8 @@
                         <span>{{lead.agent.user.username}}</span>
                       </a>
                     </td>
-                    <td><span class="badge badge-warning">{{lead.category}}</span></td>
-                    <td><small class="text-muted">3 days ago</small></td>
+                    <td><span class="{{lead.category.html_class}}">{{lead.category}}</span></td>
+                    <td><small class="text-muted">{{lead.date_added}}</small></td>
                     <td>&dollar;12,402</td>
                     <td>
                       <div class="dropdown ml-auto">
@@ -147,11 +147,10 @@
                         </div>
                       </th>
     
-                      <th>LEAD</th>
-    
-                      <th style="width: 37px">AGE</th>
+                      <th>LEAD</th> 
+                      <th style="width: 37px">AGENT</th>
                       <th style="width: 37px">CATEGORY</th>
-                      <th style="width: 120px">Last Activity</th>
+                      <th style="width: 120px">CREATED DATE</th>
                       <th style="width: 51px">Earnings</th>
                       <th style="width: 24px"></th>
                     </tr>
@@ -192,10 +191,19 @@
                             </div>
                             </div>
                         </td>
-    
-                        <td><span>{{lead.age}}</span></td>
-                        <td><span class="badge badge-warning">{{lead.category}}</span></td>
-                        <td><small class="text-muted">3 days ago</small></td>
+                        
+                        <td>                        
+                          {% if lead.agent.user.id %}
+                          <a href="{% url 'agents:detail-agent' pk=lead.agent.user.id%}">
+                            <span>{{lead.agent.user.username}}</span>
+                          </a>
+                          {%else%}
+                            <p>empty</p>
+                          {% endif %}
+                        </td>
+                        
+                        <td><span class="{{lead.category.html_class}}">{{lead.category}}</span></td>
+                        <td><small class="text-muted">{{lead.date_added}}</small></td>
                         <td>&dollar;12,402</td>
                         <td>
                           <div class="dropdown ml-auto">
