@@ -20,20 +20,22 @@
 
 
 
+
+
 ## Getting started
 1. Create your own virtual environment , and  don't forget to activate it | [toturial link](https://bit.ly/3YQlTDn)
 2. Install all of the packages which is mentioned in ```requirements.txt``` file
-3. Create a new file named ```.env``` inside the ```/core``` folder
-4. Copy all of the variables inside ```core/.template.env``` and assign your own values to them 
-5. **Download Postgresql** and config the connection with it in ```settings.py``, [see link for tutorial](http://shorturl.at/dxEZ6) 
-6. You can also use this tutorial for learning how to create your own ```SECRET_KEY``` : https://bit.ly/42atuj1
-7. Create a superuser for your app ( that will be the user first user) run in the terminal ```python manage.py createsuperuser ```
+3. Create a new file named ```.env``` inside the ```/core``` folder ( must be in the ```/core``` )
+4. Copy all of the variables inside ```core/.template.env``` to your ```.env``` file and fill your own values to them 
+5. Download **Postgresql** and configure the connection parameters with to your own db in ```settings.py```, [see link for tutorial for more explanation](http://shorturl.at/dxEZ6) 
+6. Learn how to create your own ```SECRET_KEY``` : https://bit.ly/42atuj1 and copy it to ```.env``` file
+7. Create a superuser for your app (it will be used as the first user) run in the terminal ```python manage.py createsuperuser ```
 8. Run ```export READ_DOT_ENV_FILE=True``` inside your terminal so that your environment variables file will be read.
-9.Run ```python manage.py makemigrations``` inside your terminal
-10.Run ```python manage.py migrate``` inside your terminal
+9. Run ```python manage.py makemigrations``` inside your terminal
+10. Run ```python manage.py migrate``` inside your terminal
 11.  After migrating, Run ```python manage.py runserver``` inside your terminal to run the server
 
-If you follow the instructions you suppose the see the home html page and you can loging thesystem using the superuser credentials
+If you have closely followed the instructions, you suppose the see the home html page and you can loging thesystem using the superuser credentials
 
 
 
