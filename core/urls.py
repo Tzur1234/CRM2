@@ -12,6 +12,7 @@ from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', views.HomePageView.as_view(), name="home_page"),
+    path('date/', views.LeadJsonView.as_view(), name='json-view'),
     path('', views.DashboardPageView.as_view(), name="dashboard"),
     
     path('agents/', include('agents.urls')),

@@ -349,8 +349,10 @@
                     {% if request.user.is_organizor %}
                         <div class="sidebar-stats row no-gutters align-items-center text-center border-bottom flex-shrink-0">
                             <div class="sidebar-stats__col col">
-                                <div class="sidebar-stats__title">Time</div>
-                                <div class="sidebar-stats__value">{{today}}</div>
+                                <div class="sidebar-stats__title">Date + Time</div>
+                                <div id="sidebar-stats__value" class="sidebar-stats__value">
+                                
+                                </div>
                             </div>
                             <div class="sidebar-stats__col col border-left">
                                 <div class="sidebar-stats__title">Total Leads</div>
@@ -743,10 +745,11 @@
     <script src="{% static 'assets/vendor/jqvmap/jquery.vmap.min.js' %}"></script>
     <script src="{% static 'assets/vendor/jqvmap/maps/jquery.vmap.world.js' %}"></script>
     <script src="{% static 'assets/js/vector-maps.js' %}"></script>
-
+    
     <!-- Chart Samples -->
     <script src="{% static 'assets/js/page.dashboard.js' %}"></script>
-
+    
+    <script src="{% static 'assets/vendor/load.js' %}"></script>
 </body>
 
 </html>

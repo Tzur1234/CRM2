@@ -5,7 +5,6 @@ from leads import views
 app_name="leads"
 urlpatterns = [
     path('chart/', views.Chart.as_view(), name='chart'),
-    path('json/', views.LeadJsonView.as_view(), name='json-view'),
     path('', views.LeadListView.as_view(), name="leads"),
     path('create-lead/', views.LeadCreateView.as_view(), name="create-lead"),
     path('detail-lead/<int:pk>/', views.LeadDetailView.as_view(), name="detail-lead"),
