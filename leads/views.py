@@ -407,9 +407,11 @@ class AssignLeadToCategory(OrganizorAndLoginRequiredMixin, FormView):
 # the main purpose- to return a json object of all the leads
 class LeadJsonView(View):
     def get(self, request, *args, **kwargs):
-        qs = list(Lead.objects.all().values())
-        # print(qs)
-        return  JsonResponse(qs, safe=False)
+        # qs = list(Lead.objects.all().values())
+        # Date
+        context = {}
+        context['today'] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
+        return  JsonResponse(context['today'], safe=False)
 
 class CreateFollowUpView(LoginRequiredMixin, CreateView):
     template_name= 'followup_create.html'
