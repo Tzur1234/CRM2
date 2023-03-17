@@ -108,26 +108,26 @@ DB_USER= env('DB_USER')
 DB_PASSWORD= env('DB_PASSWORD')
 DB_HOST= env('DB_HOST')
 DB_PORT= env('DB_PORT')
-DB_URL = env('DB_URL')
+
 
 POSTGRES_READY = (
     DB_NAME is not None and
     DB_USER is not None and 
     DB_PASSWORD is not None and
     DB_HOST is not None and
-    DB_PORT is not None and
-    DB_URL is not None
+    DB_PORT is not None
+
 )
 
 if POSTGRES_READY: 
     DATABASES = {
         'default': {
-            'ENGINE': DB_URL,
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': DB_NAME,
             'USER': DB_USER,
             'PASSWORD': DB_PASSWORD,
             'HOST': DB_HOST,
-            'PORT': DB_PORT,
+            'PORT': DB_PORT
         }
     }
 
