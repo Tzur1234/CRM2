@@ -1,6 +1,6 @@
 # CRM 
 
-![My website](https://crm2-naq4z.ondigitalocean.app)
+```link to my website: https://crm2-naq4z.ondigitalocean.app/ ```
 
 
 ## Features:
