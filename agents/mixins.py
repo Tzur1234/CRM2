@@ -10,7 +10,8 @@ class OrganizorAndLoginRequiredMixin(SuccessMessageMixin ,AccessMixin):
         if not request.user.is_authenticated or not request.user.is_organizor:
             
             # Show error message!
-            messages.error(self.request, 'You have no permissions!', extra_tags='danger')
+            messages.error(self.request, 'You have no permissions to access this page!')
+            messages.info(self.request, 'You have been redirected to leads page!')
            
 
             return redirect("leads:leads")

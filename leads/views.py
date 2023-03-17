@@ -200,6 +200,7 @@ class LeadUpdateView(OrganizorAndLoginRequiredMixin, UpdateView):
         return queryset
     
     def get_success_url(self):
+        messages.success(self.request, 'Lead was updated successfuly!')
         return reverse('leads:leads')
   
 class LeadDeleteView(OrganizorAndLoginRequiredMixin, DeleteView):
@@ -216,6 +217,7 @@ class LeadDeleteView(OrganizorAndLoginRequiredMixin, DeleteView):
         return queyset
     
     def get_success_url(self):
+        messages.success(self.request, 'Lead was deleted successfuly!')
 
         return reverse('leads:leads')   
 

@@ -68,14 +68,17 @@
                     </td>
 
                     <td>
+                     
                         <div class="media align-items-center">
-                        <div class="avatar avatar-xs mr-2">
+                          {% if lead.image %}
+                          <div class="avatar avatar-xs mr-2">                        
                             <img
                             src="{{lead.image.url}}"
                             alt="Avatar"
                             class="avatar-img rounded-circle"
                             />
-                        </div>
+                          </div> 
+                          {% endif %}
                         <div class="media-body">
                           <a href="{% url 'leads:detail-lead' lead.id %}">
                             <span class="js-lists-values-employee-name"
@@ -174,13 +177,16 @@
     
                         <td>
                             <div class="media align-items-center">
-                            <div class="avatar avatar-xs mr-2">
-                                <img
-                                src="{{lead.image.url}}"
-                                alt="Avatar"
-                                class="avatar-img rounded-circle"
-                                />
-                            </div>
+                              {% if lead.image %}
+                                <div class="avatar avatar-xs mr-2">
+                                  <img
+                                  src="{{lead.image.url}}"
+                                  alt="Avatar"
+                                  class="avatar-img rounded-circle"
+                                  />
+                                </div>
+                              {% endif %}
+                        
                             <div class="media-body">
                               <a href="{% url 'leads:detail-lead' lead.id %}">
                                 <span class="js-lists-values-employee-name"

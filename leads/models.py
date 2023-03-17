@@ -28,7 +28,7 @@ class Lead(models.Model):
     agent = models.ForeignKey('Agent', on_delete=models.SET_NULL, null=True, blank=True)
     organization = models.ForeignKey("UserProfile", on_delete=models.CASCADE, null=True)
     category = models.ForeignKey("Category", on_delete=models.SET_NULL, null=True, blank=True)
-    image = models.ImageField(upload_to='profile_picture')
+    image = models.ImageField(upload_to='profile_picture', null=True, blank=True)
 
     # Module manager
     objects = LeadManager()
