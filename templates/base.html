@@ -1,9 +1,14 @@
-{% load mathfilters %}
-{% load static %}
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
 <head>
+
+    {% load static %}
+    {% load mathfilters %}
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,6 +17,17 @@
     {% block static %}
       
     {% endblock static %}
+    <div class="center-text">
+        <div class="d-flex justify-content-center">
+            <div class="align-items-center ml-5">
+                
+                <div class="ml-5">
+                      </svg>
+                    {% bootstrap_messages %}</div>
+            </div>
+            
+        </div>
+    </div>
 
     <!-- Prevent the demo from appearing in search engines -->
     <meta name="robots" content="noindex">
@@ -286,15 +302,6 @@
               
 
 
-               
-            {% if messages %}            
-                {% for message in messages %}
-                    <div class="alert alert-{{message.extra_tags}} mb-2" role="alert">
-                        {{message}}
-                    </div>         
-                             
-                {% endfor %}       
-            {% endif %}
     
 
                 <!-- Header Layout Content -->

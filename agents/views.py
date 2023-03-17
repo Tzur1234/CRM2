@@ -26,6 +26,8 @@ from .forms import AgentCreateForm, AgentUpdateForm
 
 import random
 
+from django.contrib import messages
+
 
 class AgentListView(OrganizorAndLoginRequiredMixin, ListView):
     template_name = 'agent_list.html'
@@ -36,6 +38,9 @@ class AgentListView(OrganizorAndLoginRequiredMixin, ListView):
     def get_queryset(self):
         organization = self.request.user.userprofile
         return Agent.objects.filter(organization=organization)
+
+        # INFO message
+        messages.info(self.request, f"Those are the {self.user.userprofile } agents ")
 
 class AgentCreateView(OrganizorAndLoginRequiredMixin, CreateView):
     template_name = 'agent_create.html'
