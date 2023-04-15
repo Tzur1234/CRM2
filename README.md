@@ -1,6 +1,7 @@
 # CRM 
 
 ### link to my website: https://crm2-naq4z.ondigitalocean.app/
+### [Video demo](https://www.youtube.com/watch?v=rGaljy5mGfU&t=3s)
 
 
 ## Features:
